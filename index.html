@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>טוקיו · 30/10</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&display=swap">
+<style>
+/* Layout: one narrow phone column, a timeline down the right edge (RTL), map buttons under each stop. */
+:root{
+ --bg:#eef1f3; --card:#ffffff; --fg:#1d2328; --muted:#5c6770;
+ --line:#cfd6db; --accent:#b8322a; --rain:#2f5d7c; --chip:#e2e8ec;
+ --display:'Frank Ruhl Libre',Georgia,'Times New Roman',serif;
+ --body:'Assistant','Segoe UI',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#14181b; --card:#1d2328; --fg:#e8ecef; --muted:#9aa6af;
+ --line:#323b42; --accent:#e5675d; --rain:#7fb2d4; --chip:#28313787; color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#14181b; --card:#1d2328; --fg:#e8ecef; --muted:#9aa6af;
+ --line:#323b42; --accent:#e5675d; --rain:#7fb2d4; --chip:#28313787; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;direction:rtl;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+main{max-width:620px;margin:0 auto;display:grid;gap:28px}
+header{display:grid;gap:6px}
+.eyebrow{font-size:13px;letter-spacing:.06em;color:var(--muted);font-weight:600}
+h1{font-family:var(--display);font-size:clamp(30px,8vw,42px);line-height:1.15;margin:0;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{margin:0;color:var(--muted);max-width:60ch}
+.weather{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-variant-numeric:tabular-nums}
+.weather div{background:var(--card);padding:10px 8px;display:grid;gap:2px;text-align:center}
+.weather b{font-size:18px}
+.weather small{color:var(--muted);font-size:12px}
+.weather .wet b{color:var(--rain)}
+.src{font-size:12px;color:var(--muted);margin:6px 0 0}
+.src a{color:inherit}
+h2{font-family:var(--display);font-size:22px;margin:0 0 4px}
+ol.day{list-style:none;margin:0;padding:0;display:grid;gap:0;border-right:2px solid var(--line);margin-right:60px}
+ol.day li{position:relative;padding:0 18px 22px 0;display:grid;gap:6px;min-width:0}
+ol.day li::before{content:"";position:absolute;right:-7px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+ol.day li.indoor::before{background:var(--rain);border-color:var(--rain)}
+.time{position:absolute;right:-60px;top:2px;width:44px;text-align:left;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;color:var(--muted)}
+h3{margin:0;font-size:18px;line-height:1.35}
+ol.day p{margin:0}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;background:var(--chip);color:var(--muted);margin-inline-start:6px;vertical-align:2px}
+.indoor .tag{color:var(--rain)}
+.food{font-size:14px;color:var(--muted)}
+a.map{justify-self:start;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 12px}
+a.map:hover,a.map:focus-visible{border-color:var(--accent);outline:none}
+a.map svg{width:16px;height:16px;flex:none}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:8px}
+.box ul{margin:0;padding-inline-start:18px;display:grid;gap:4px}
+a.map.full{justify-self:stretch;justify-content:center;background:var(--accent);color:#fff;border-color:var(--accent)}
+footer{font-size:12px;color:var(--muted)}
+.switch{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.switch button{font:inherit;font-weight:700;font-size:15px;border:0;background:transparent;color:var(--muted);padding:10px 8px;cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.switch button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+main[data-mode="dry"] .rain-only,main[data-mode="rain"] .dry-only{display:none}
+ol.day li.dry::before{background:var(--accent)}
+</style>
+</head>
+<body>
+<main id="day" data-mode="rain">
+ <header>
+  <div class="eyebrow">שישי 30.10.2026 · יום מלא ראשון · אבנר וגילי</div>
+  <h1>מייג׳י בבוקר, <span>שיבויה בצהריים</span>, טמפורה בערב</h1>
+  <p class="lede">בחוץ בבוקר, אחר הצהריים לפי מזג האוויר, ומנוחה לפני שהג׳ט לג נופל. ישנים מוקדם: מחר הסיור עם יוקי מתחיל ב־08:00.</p>
+  <div class="switch" role="group" aria-label="בחירת מסלול לפי מזג האוויר">
+   <button type="button" id="mode-rain" data-set="rain" aria-pressed="true">יורד גשם</button>
+   <button type="button" id="mode-dry" data-set="dry" aria-pressed="false">יבש</button>
+  </div>
+  <p class="hint">הבוקר והערב זהים בשני המסלולים. משתנה רק אחר הצהריים: בגשם Shibuya Parco, ביבש סיבוב בשיבויה ו־Shinjuku Gyoen, ובערב תצפית חינם במקום גודזילה.</p>
+ </header>
+
+ <section>
+  <div class="weather" aria-label="תחזית שינג׳וקו ל־30/10">
+   <div><small>טמפ׳</small><b>18°/12°</b></div>
+   <div><small>06–12</small><b>30%</b></div>
+   <div class="wet"><small>12–18</small><b>70%</b></div>
+   <div class="wet"><small>18–24</small><b>50%</b></div>
+  </div>
+  <p class="src">tenki.jp, תחזית מ־28/10 לשינג׳וקו. גשם קל, עד כ־1 מ״מ. <a href="https://tenki.jp/forecast/3/16/4410/13104/10days.html">לתחזית העדכנית</a></p>
+ </section>
+
+ <a class="map full rain-only" href="https://www.google.com/maps/dir/JR%20Kyushu%20Hotel%20Blossom%20Shinjuku/Meiji%20Jingu/Takeshita%20Street/Cat%20Street%20Shibuya/Uobei%20Shibuya%20Dogenzaka/Shibuya%20PARCO/Tempura%20Tsunahachi%20Shinjuku/Omoide%20Yokocho/JR%20Kyushu%20Hotel%20Blossom%20Shinjuku">כל היום על מפה אחת</a>
+ <a class="map full dry-only" href="https://www.google.com/maps/dir/JR%20Kyushu%20Hotel%20Blossom%20Shinjuku/Meiji%20Jingu/Takeshita%20Street/Cat%20Street%20Shibuya/Uobei%20Shibuya%20Dogenzaka/Miyashita%20Park%20Shibuya/Shinjuku%20Gyoen/JR%20Kyushu%20Hotel%20Blossom%20Shinjuku/Tempura%20Tsunahachi%20Shinjuku/Omoide%20Yokocho/Tokyo%20Metropolitan%20Government%20Building/JR%20Kyushu%20Hotel%20Blossom%20Shinjuku">כל היום על מפה אחת</a>
+
+ <section>
+  <h2>המסלול</h2>
+  <ol class="day">
+   <li><span class="time">08:30</span>
+    <h3>ארוחת בוקר ליד המלון</h3>
+    <p>מאפייה או קונביני ליד Blossom, ואז ל־JR Yamanote משינג׳וקו להראג׳וקו, 4 דקות.</p>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;destination=Meiji%20Jingu&amp;travelmode=transit"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>מהמלון למייג׳י</a>
+   </li>
+   <li><span class="time">09:15</span>
+    <h3>מקדש מייג׳י <span class="tag">בחוץ</span></h3>
+    <p>שביל היער לשער העץ הגדול ולמקדש, לפני הגשם. בבקרים יש לפעמים תהלוכת חתונה מסורתית.</p>
+   </li>
+   <li><span class="time">10:45</span>
+    <h3>טאקשיטה, אומוטסנדו ו־Cat Street <span class="tag">בחוץ</span></h3>
+    <p>מבט קצר על רחוב טאקשיטה, ואז הליכה בשדרת אומוטסנדו וב־Cat Street עד שיבויה, כ־30 דקות הליכה נטו. אם מתחיל גשם, מקצרים.</p>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=Meiji%20Jingu&amp;destination=Uobei%20Shibuya%20Dogenzaka&amp;travelmode=walking&amp;waypoints=Takeshita%20Street%7COmotesando%20Hills%7CCat%20Street%20Shibuya"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>מסלול ההליכה עד Uobei</a>
+   </li>
+   <li class="indoor"><span class="time">12:30</span>
+    <h3>צהריים ב־Uobei <span class="tag">בפנים</span></h3>
+    <p>סושי שמזמינים ממסך מגע ומגיע במסילה מהירה. זול, מהיר ומשעשע, וכל אחד מזמין מה שהוא אוכל. 2-29-11 Dogenzaka.</p>
+    <p class="food">גילי: לדלג על イカ ika (קלמרי), タコ tako (תמנון) ו־エビ ebi (שרימפס). אבנר: דגים ופירות ים בלי הגבלה.</p>
+    <a class="map dry-only" href="https://www.google.com/maps/dir/?api=1&amp;origin=Uobei%20Shibuya%20Dogenzaka&amp;destination=Miyashita%20Park%20Shibuya&amp;travelmode=walking&amp;waypoints=Shibuya%20Scramble%20Crossing"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>הליכה לצומת ול־Miyashita Park</a>
+    <a class="map rain-only" href="https://www.google.com/maps/dir/?api=1&amp;origin=Uobei%20Shibuya%20Dogenzaka&amp;destination=Shibuya%20PARCO&amp;travelmode=walking"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>הליכה ל־Shibuya Parco</a>
+   </li>
+   <li class="indoor rain-only"><span class="time">13:30</span>
+    <h3>Shibuya Parco והצומת <span class="tag">בפנים</span></h3>
+    <p>קומה 6: Nintendo TOKYO, Pokémon Center ו־Capcom Store. אחר כך מבט על צומת שיבויה מהגשר המקורה של Mark City, בלי לצאת לגשם.</p>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=Shibuya%20PARCO&amp;destination=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;travelmode=transit"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>חזרה למלון</a>
+   </li>
+   <li class="dry dry-only"><span class="time">13:30</span>
+    <h3>צומת שיבויה ו־Miyashita Park <span class="tag">בחוץ</span></h3>
+    <p>חוצים את הצומת ברגל, מציצים בפסל האצ׳יקו, וממשיכים לגג של Miyashita Park: דשא, חנויות ונוף על המסילות. אפשר לקפוץ ל־Shibuya Parco בדרך אם מתחשק.</p>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=Miyashita%20Park%20Shibuya&amp;destination=Shinjuku%20Gyoen%20Shinjuku%20Gate&amp;travelmode=transit"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>לשינג׳וקו גיואן</a>
+   </li>
+   <li class="dry dry-only"><span class="time">14:30</span>
+    <h3>Shinjuku Gyoen <span class="tag">בחוץ</span></h3>
+    <p>גן ענק בלב העיר, עם תחילת צבעי הסתיו. כניסה ¥500 לאדם, כניסה אחרונה 16:00 והגן נסגר ב־16:30. השער הסמוך למלון הוא Shinjuku Gate, כ־10 דקות הליכה.</p>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=Shinjuku%20Gyoen%20Shinjuku%20Gate&amp;destination=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;travelmode=walking"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>הליכה חזרה למלון</a>
+   </li>
+   <li class="indoor dry-only"><span class="time">16:15</span>
+    <h3>מנוחה במלון</h3>
+    <p>מקלחת ושנ״צ קצר לפני הערב. ערב 30/10 בשיבויה צפוי להיות עמוס לקראת Halloween, טוב שאתם כבר בשינג׳וקו.</p>
+   </li>
+   <li class="indoor rain-only"><span class="time">15:30</span>
+    <h3>מנוחה במלון</h3>
+    <p>זה בערך הזמן שהג׳ט לג נופל. מקלחת, שנ״צ, ולצאת שוב רעננים. ערב 30/10 בשיבויה צפוי להיות עמוס לקראת Halloween, עוד סיבה להיות בשינג׳וקו.</p>
+   </li>
+   <li class="indoor"><span class="time">18:00</span>
+    <h3>טמפורה ב־Tsunahachi <span class="tag">בפנים</span></h3>
+    <p>מסעדת טמפורה ותיקה משנת 1924, ליד Shinjuku-sanchome, כ־15 דקות הליכה מהמלון. בלי הזמנה; צפו לתור קצר.</p>
+    <p class="food">דג וירקות מתאימים לשניכם. בסט של גילי לבקש להחליף את השרימפס: エビ抜きでお願いします (ebi nuki de onegai shimasu).</p>
+    <a class="map rain-only" href="https://www.google.com/maps/dir/?api=1&amp;origin=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;destination=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;travelmode=walking&amp;waypoints=Tempura%20Tsunahachi%20Shinjuku%7COmoide%20Yokocho%7CGodzilla%20Head%20Shinjuku"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>מסלול הערב, הלוך ושוב</a>
+   </li>
+   <li class="dry dry-only"><span class="time">19:30</span>
+    <h3>Omoide Yokocho ותצפית לילה <span class="tag">חינם</span></h3>
+    <p>עוברים בסמטת הפנסים (רובה שיפודי בשר, אז רק להסתכל) וממשיכים לבניין העירייה, Tokyo Metropolitan Government Building. התצפית הדרומית בקומה 45 פתוחה עד 22:00, כניסה אחרונה 21:30, בחינם. ממנה כ־15 דקות הליכה למלון, ושינה עד 22:30.</p>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;destination=JR%20Kyushu%20Hotel%20Blossom%20Shinjuku&amp;travelmode=walking&amp;waypoints=Tempura%20Tsunahachi%20Shinjuku%7COmoide%20Yokocho%7CTokyo%20Metropolitan%20Government%20Building"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>מסלול הערב היבש, הלוך ושוב</a>
+   </li>
+   <li class="rain-only"><span class="time">19:30</span>
+    <h3>Omoide Yokocho וגודזילה <span class="tag">מטריה</span></h3>
+    <p>הליכה בסמטת הפנסים הצפופה (רובה שיפודי בשר, אז רק לעבור ולהסתכל) ומשם לראש גודזילה מעל מלון Gracery בקבוקיצ׳ו. חוזרים למלון ושינה עד 22:00.</p>
+   </li>
+  </ol>
+ </section>
+
+ <section class="box rain-only">
+  <h2>אם יורד גשם חזק כבר בבוקר</h2>
+  <ul>
+   <li>מייג׳י בקצרה, או מוותרים עליו ליום אחר.</li>
+   <li>Isetan שינג׳וקו וקומת האוכל B1, נפתח ב־10:00.</li>
+   <li>Tokyu Kabukicho Tower וקניות מקורות ליד התחנה, ואז אותה מנוחה ואותה ארוחת ערב.</li>
+  </ul>
+ </section>
+
+ <section class="box">
+  <h2>לפני מחר</h2>
+  <ul>
+   <li>שעון מעורר ל־07:00; הסיור עם יוקי מתחיל ב־08:00.</li>
+   <li>מזומן ביין ליתרת התשלום על הסיור.</li>
+   <li>קארטינג הועבר ל־19/11: כבישים רטובים וג׳ט לג לא הולכים יחד.</li>
+  </ul>
+ </section>
+
+ <footer>השעות הן הערכה. בדקו שעות פתיחה במפה לפני היציאה. מקורות: <a href="https://timeout.com/tokyo/restaurants/uobei" style="color:inherit">Uobei · Time Out</a>, <a href="https://tokyocheapo.com/restaurant/tempura-tsunahachi-shinjuku/" style="color:inherit">Tsunahachi · Tokyo Cheapo</a>.</footer>
+</main>
+<script>
+(function(){
+ var main=document.getElementById('day');
+ function set(mode,save){
+  if(mode!=='rain'&&mode!=='dry')return;
+  main.setAttribute('data-mode',mode);
+  document.querySelectorAll('.switch button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===mode))});
+  if(save){try{localStorage.setItem('oct30-mode',mode)}catch(e){}}
+ }
+ document.querySelectorAll('.switch button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set,true)})});
+ var saved=null;try{saved=localStorage.getItem('oct30-mode')}catch(e){}
+ var hash=location.hash.replace('#','');
+ set(hash==='dry'||hash==='rain'?hash:(saved||'rain'),false);
+})();
+</script>
+</body>
+</html>
