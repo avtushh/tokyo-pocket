@@ -1,7 +1,8 @@
 # Tokyo pocket
 
-Public Hebrew RTL itinerary for October 30, 2026. Rain/dry alternatives and Google Maps links.
+Public static Hebrew RTL daily itineraries with separate Google Maps route links.
 
-https://avtushh.github.io/tokyo-pocket/
+- [November 1: park and Shimokitazawa](https://avtushh.github.io/tokyo-pocket/01-11.html)
+- [October 30: Meiji and Shibuya](https://avtushh.github.io/tokyo-pocket/30-10.html)
 
-Do not add private confirmations, booking codes, payment details or QR codes.
+The root page opens the latest day. Do not add private confirmations, booking codes, payment details or QR codes.
